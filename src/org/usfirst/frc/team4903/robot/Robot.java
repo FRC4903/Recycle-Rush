@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.CameraServer;
+
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
@@ -112,11 +113,17 @@ public class Robot extends SampleRobot {
     	CTalon2.setPosition(0);
     	CTalon2.ClearIaccum();
     	CTalon2.clearStickyFaults();
-    	
+
+    	// Camera stuff
+    	server = CameraServer.getInstance();
+	    server.setQuality(50);
+	    server.startAutomaticCapture("cam0");
+    	/*
     	frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
     	
     	session = NIVision.IMAQdxOpenCamera("cam0",NIVision.IMAQdxCameraControlMode.CameraControlModeController);
         NIVision.IMAQdxConfigureGrab(session);
+        */
     }
     /**
      * Drive left & right motors for 2 seconds then stop
