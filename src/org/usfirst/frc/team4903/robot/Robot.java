@@ -70,6 +70,10 @@ public class Robot extends SampleRobot {
 	double speed_y;
 	double R_speed_x;
 	double R_speed_y;
+
+	int encode_start;
+	int encoder_end;
+	int encoder_difference;
 	
 	boolean tote_up;
 	boolean tote_down;
@@ -129,6 +133,18 @@ public class Robot extends SampleRobot {
      * Drive left & right motors for 2 seconds then stop
      */
     public void autonomous() {
+    	while (limit_rotate_cc) {
+    		CTalon1.set(-0.1);
+    	}
+    	encode_start = CTalon1.getEncPosition();
+    	while (limit_rotate_c) {
+    		CTalon1.set(0.1);
+    	}
+    	encoder_end = CTalon1.getEncPosition();
+    	encoder_difference = Math.abs(encoder_end - encode_start);
+    	while (Math.abs(CTalon1.getEncPosition()) != Math.abs(encoder_difference/2)) {
+    		CTalon1.set(-0.1);
+    	}
     }
 
     /**
