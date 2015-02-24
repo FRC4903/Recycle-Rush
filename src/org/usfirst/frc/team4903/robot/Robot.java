@@ -39,6 +39,7 @@ import com.ni.vision.NIVision.ShapeMode;
  */
 public class Robot extends SampleRobot {
     RobotDrive myRobot;
+    Sensors sensor;
     Joystick baseControl,clawControl;
     Ultrasonic ultra;
     CANTalon CTalon1 = new CANTalon(1);   //x --> talon ID #1
@@ -98,25 +99,8 @@ public class Robot extends SampleRobot {
         //ultra = new Ultrasonic(0,1);
     }
     public void robotInit(){
-    	CTalon1.enableLimitSwitch(true,true);
-    	CTalon1.enableBrakeMode(true);
-    	CTalon1.setVoltageRampRate(6);
-    	CTalon1.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-    	CTalon1.reverseOutput(true);
-    	CTalon1.reverseSensor(false);
-    	CTalon1.setPosition(0);
-    	CTalon1.ClearIaccum();
-    	CTalon1.clearStickyFaults();
-    	
-    	CTalon2.enableLimitSwitch(true,true);
-    	CTalon2.enableBrakeMode(true);
-    	CTalon2.setVoltageRampRate(6);
-    	CTalon2.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-    	CTalon2.reverseOutput(true);
-    	CTalon2.reverseSensor(false);
-    	CTalon2.setPosition(0);
-    	CTalon2.ClearIaccum();
-    	CTalon2.clearStickyFaults();
+        sensor.init_CTalons(CTalon1);
+        sensor.init_CTalons(CTalon2);
     	
     	// Camera stuff
     

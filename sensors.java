@@ -23,7 +23,7 @@ import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
 import com.ni.vision.NIVision.ShapeMode;
 
-public Class sensors {
+public Class Sensors {
 	Joystick baseControl,clawControl;
     Ultrasonic ultra;
     CANTalon CTalon1 = new CANTalon(1);   //x --> talon ID #1
