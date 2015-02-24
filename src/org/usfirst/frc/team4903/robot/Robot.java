@@ -17,13 +17,10 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.CameraServer;
-
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
 import com.ni.vision.NIVision.ShapeMode;
-
-import java.util.*;
 /**
  * This is a demo program showing the use of the RobotDrive class.
  * The SampleRobot class is the base of a robot application that will automatically call your
@@ -60,6 +57,8 @@ public class Robot extends SampleRobot {
     Victor L2 = new Victor(5);
     Victor L3 = new Victor(6);
     Victor L4 = new Victor(7);
+    CameraServer server;
+    CameraServer server2;
     
     double Right_x;
     double Right_y;
@@ -70,8 +69,8 @@ public class Robot extends SampleRobot {
 	double speed_y;
 	double R_speed_x;
 	double R_speed_y;
-
-	int encode_start;
+	
+	int encoder_start;
 	int encoder_end;
 	int encoder_difference;
 	
@@ -80,11 +79,12 @@ public class Robot extends SampleRobot {
 	boolean arm_out;
 	boolean arm_in;
 	boolean claw_safety;
+	boolean cam_change;
 	
 	double speed;
 	
 	double claw_y;
-	boolean isTopMoving = false;
+	double speed_control;
 	
 	int session;
     Image frame;
@@ -117,33 +117,29 @@ public class Robot extends SampleRobot {
     	CTalon2.setPosition(0);
     	CTalon2.ClearIaccum();
     	CTalon2.clearStickyFaults();
-
-    	// Camera stuff
-    	server = CameraServer.getInstance();
-	    server.setQuality(50);
-	    server.startAutomaticCapture("cam0");
-    	/*
-    	frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
     	
-    	session = NIVision.IMAQdxOpenCamera("cam0",NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-        NIVision.IMAQdxConfigureGrab(session);
-        */
+    	// Camera stuff
+    
+    	//frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+    	
+    	//session = NIVision.IMAQdxOpenCamera("cam0",NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+        //NIVision.IMAQdxConfigureGrab(session);
     }
     /**
      * Drive left & right motors for 2 seconds then stop
      */
     public void autonomous() {
-    	while (limit_rotate_cc) {
-    		CTalon1.set(-0.1);
+    	while (limit_rotate_cc.get()) {
+    		CTalon1.set(-0.2);
     	}
-    	encode_start = CTalon1.getEncPosition();
-    	while (limit_rotate_c) {
-    		CTalon1.set(0.1);
+    	encoder_start = CTalon1.getEncPosition();
+    	while (limit_rotate_c.get()) {
+    		CTalon1.set(0.2);
     	}
     	encoder_end = CTalon1.getEncPosition();
-    	encoder_difference = Math.abs(encoder_end - encode_start);
+    	encoder_difference = Math.abs(encoder_end - encoder_start);
     	while (Math.abs(CTalon1.getEncPosition()) != Math.abs(encoder_difference/2)) {
-    		CTalon1.set(-0.1);
+    		CTalon1.set(-0.2);
     	}
     }
 
@@ -158,32 +154,41 @@ public class Robot extends SampleRobot {
     	
     	//double rotate;
     	
-    	NIVision.IMAQdxStartAcquisition(session);
-    	NIVision.Rect rect = new NIVision.Rect(10, 10, 100, 100);
+    	//NIVision.IMAQdxStartAcquisition(session);
+    	//NIVision.Rect rect = new NIVision.Rect(10, 10, 100, 100);
     	
         while (isOperatorControl() && isEnabled()) {
+        	//System.out.println(CTalon1.getEncPosition());
+        	//System.out.print(" " + CTalon2.getEncPosition());
+        	
         	Left_x = baseControl.getRawAxis(0);
         	Left_y = baseControl.getRawAxis(1);
         	Right_x = baseControl.getRawAxis(4);
         	Right_y = baseControl.getRawAxis(5);
-        	
-        	speed_x = Left_x; 
-        	speed_y = Left_y;
-        	R_speed_x = Right_x;
-        	R_speed_y = Right_y;
-        	
+        	speed_control = clawControl.getRawAxis(3);
         	claw_y = clawControl.getRawAxis(1);
+        	
+        	speed_x = Left_x/2.0; 
+        	speed_y = Left_y/2.0;
+        	R_speed_x = Right_x/2.0;
+        	
         	claw_safety = clawControl.getRawButton(1);
         	tote_up = clawControl.getRawButton(5);
         	tote_down = clawControl.getRawButton(3);
         	arm_out = clawControl.getRawButton(6);
         	arm_in = clawControl.getRawButton(4);
-        	
-        	// Camera stuff
-        	NIVision.IMAQdxGrab(session, frame, 1);
-            NIVision.imaqDrawShapeOnImage(frame, frame, rect,DrawMode.DRAW_VALUE, ShapeMode.SHAPE_OVAL, 0.0f);
-            
-            CameraServer.getInstance().setImage(frame);
+        	cam_change = clawControl.getRawButton(2);
+
+        	if (cam_change){
+            	server = CameraServer.getInstance();
+            	server.setQuality(50);   
+        		server.startAutomaticCapture("cam1");
+        	}
+        	else{
+        		server = CameraServer.getInstance();
+        		server.setQuality(50);
+        		server.startAutomaticCapture("cam0");  // Change to can0
+        	}
         	
         	if (Right_x>0) {
         		speed_x += Right_x;
@@ -198,22 +203,25 @@ public class Robot extends SampleRobot {
         	if (Left_x == 0 && speed_x > 0) {
         		speed_x -= deceleration;
         	}
+        	
+        	
         	moveBase();
         	moveTote();
         	moveArm();
         	Timer.delay(0.02);
+        	
         }
-        NIVision.IMAQdxStopAcquisition(session);
+        //NIVision.IMAQdxStopAcquisition(session);
     }
     public void moveBase(){
     	if (Left_x <= 0.15  && Left_x >= -0.15){ //doesnt require the joystick to be perfectly parallel to the x or y axis, so controlling is easier
-    		if(Left_y != 0){ //foreward
-    			talonSet(-speed_y,speed_y,speed_y,-speed_y);
+    		if(Left_y != 0){ 
+    			talonSet(-speed_y,speed_y,speed_y,-speed_y); //(neg, neg, pos, pos) foreward or (pos,pos,neg,neg) back
     		}
     	}
     	else if(Left_y <= 0.15 && Left_y >= -0.15){
-    		if(Left_x != 0){ //right
-    			talonSet(speed_x,speed_x,speed_x,speed_x);
+    		if(Left_x != 0){ 
+    			talonSet(speed_x,-speed_x,speed_x,-speed_x); // right (neg, pos, neg, pos) left (pos,neg,pos,neg)
     		}
     	}
     	else if(Left_x > 0.15 && Left_y > 0.15){ //up - right
@@ -232,10 +240,17 @@ public class Robot extends SampleRobot {
     		talon2.set(speed_x);
     		talon3.set(-speed_y);
     	}
+    	
     	if(Right_x != 0){ //rotate rightste
     	//	System.out.println(true);
-    		talonSet(R_speed_x,-R_speed_x,R_speed_x,-R_speed_x);
+    		talonSet(R_speed_x,R_speed_x,R_speed_x,R_speed_x);
     	}
+/*    	if(Left_x != 0 && Left_y != 0){
+        	talon1.set(0);
+        	talon2.set(0);
+        	talon3.set(0);
+        	talon4.set(0);
+    	}*/
     }
     public void talonSet(double s1, double s2, double s3, double s4){
 		talon1.set(s1);
@@ -245,22 +260,20 @@ public class Robot extends SampleRobot {
     }
     
     public void moveTote() {
-    	if (limit_tote_up.get()){
-    		System.out.println(true);
-    	}
-    	else {
-    		System.out.println(false);
-    	}
-    	if (tote_up /*&& limit_tote_up.get()==false*/) {
-    		speed = 0.2;
+    	
+    	//System.out.println(limit_tote_up.get());
+    	//System.out.println(limit_tote_down.get());  // True by default
+    	
+    	if (tote_up && limit_tote_up.get()) {
+    		speed = 0.2 + 0.5*(1-speed_control);
     		L1.set(speed);
     		L2.set(speed);
     		L3.set(-speed);
     		L4.set(speed);
     		
     	}
-    	else if (tote_down /*&& limit_tote_down.get()==false*/) {
-    		speed = -0.2;
+    	else if (tote_down && limit_tote_down.get()) {
+    		speed = -(0.2 + 0.5*(1-speed_control));
     		L1.set(speed);
     		L2.set(speed);
     		L3.set(-speed);
@@ -273,24 +286,35 @@ public class Robot extends SampleRobot {
     		L3.set(0);
     		L4.set(0);
     	}
-    	
-    	if (claw_y != 0 && claw_safety /*&& limit_rotate_c.get()==false && limit_rotate_cc.get()==false*/){
-    		CTalon2.set(-claw_y);
-    	}
-    	else {
-    		CTalon2.set(0.0);
-    	}
     }
-    
+    public void print(String x){
+    	System.out.println(x);
+    }
     public void moveArm() {
-    	if (arm_in /*&& limit_arm_in.get()==false*/) {
+    	//System.out.println(limit_arm_in.get());  // True by default
+    	//System.out.println(limit_arm_out.get());  // True by default
+    	System.out.println(claw_y);
+    	
+    	if (arm_in && limit_arm_in.get()) {
     		CTalon1.set(-0.5);
     	}
-    	else if (arm_out /*&& limit_arm_out.get()==false*/) {
+    	else if (arm_out && limit_arm_out.get()) {
     		CTalon1.set(0.5);
     	}
     	else {
     		CTalon1.set(0.0);
+    	}
+    	
+    	//System.out.println(limit_rotate_c.get());  // True by default
+    	//System.out.println(limit_rotate_cc.get());  // True by default
+    	if (claw_y > 0 && claw_safety && limit_rotate_cc.get()){
+    		CTalon2.set(-claw_y);
+    	}
+    	else if (claw_y < 0 && claw_safety && limit_rotate_c.get()) {
+    		CTalon2.set(-claw_y);
+    	}
+    	else {
+    		CTalon2.set(0.0);
     	}
     }
 
