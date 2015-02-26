@@ -1,0 +1,28 @@
+Robotics Organizational Meeting
+
+TO DO:
+Mechanical
+- Pit design
+- Feild prototype
+- Scissor quick disconnect
+- Cart design
+- Team numbers (front, back)
+- Sponsor logos
+
+Elecrical
+- Safety presentation
+- Safety video
+- Fake awards
+
+Programming
+- Many autonomous
+- Test
+- Debug
+- Scout app
+- Order sensors (ask Davoir if it can be shipped to him)
+
+Media
+- Order T-shirts
+- Everyone should know about the robot
+- Recrute for media
+- Banners
