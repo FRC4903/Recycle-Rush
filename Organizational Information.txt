@@ -29,8 +29,9 @@ Media
 
 NEXT YEAR:
 Team
-- 4 Manufacturing
+- 4 manufacturing
 - 4 design
 - 2 tools and components
 - 4 electrical
 - 2 rules and Q&A
+- 4-6 programmers
