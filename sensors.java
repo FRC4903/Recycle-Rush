@@ -24,8 +24,6 @@ import com.ni.vision.NIVision.Image;
 import com.ni.vision.NIVision.ShapeMode;
 
 public Class Sensors {
-	Joystick baseControl,clawControl;
-    Ultrasonic ultra;
     CANTalon CTalon1 = new CANTalon(1);   //x --> talon ID #1
     CANTalon CTalon2 = new CANTalon(2);   //y --> talon ID #2
     SpeedController talon1 = new Talon(0);
@@ -42,8 +40,6 @@ public Class Sensors {
     Victor L2 = new Victor(5);
     Victor L3 = new Victor(6);
     Victor L4 = new Victor(7);
-    CameraServer server;
-    CameraServer server2;
 
     public void init_CTalons(CTalon) {
     	CTalon.enableLimitSwitch(true,true);
