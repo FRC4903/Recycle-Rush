@@ -15,7 +15,7 @@ Elecrical
 - Fake awards
 
 Programming
-- Many autonomous
+- Many autonomous modes
 - Test
 - Debug
 - Scout app
