@@ -11,7 +11,7 @@ public void autonomous() {
     encoder_start = CTalon1.getEncPosition();
     while (limit_rotate_c.get()) {
     	CTalon1.set(0.2);
-    }
+    } 
     encoder_end = CTalon1.getEncPosition();
     encoder_difference = Math.abs(encoder_end - encoder_start);
     while (Math.abs(CTalon1.getEncPosition()) != Math.abs(encoder_difference/2)) {

@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
-import edu.wpi.first.wpilibj. DigitalOutput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Victor;
