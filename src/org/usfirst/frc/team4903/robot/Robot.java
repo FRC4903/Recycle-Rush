@@ -65,6 +65,13 @@ public class Robot extends SampleRobot {
 	boolean arm_in;
 	boolean claw_safety;
 	boolean cam_change;
+
+    boolean arm7;
+    boolean arm8;
+    boolean arm9;
+    boolean arm10;
+    boolean arm11;
+    boolean arm12;
 	
 	double speed;
 	
@@ -82,6 +89,7 @@ public class Robot extends SampleRobot {
         clawControl = new Joystick(0);
         //ultra = new Ultrasonic(0,1);
     }
+    
     public void robotInit(){
         sensor.init_CTalons(sensor.CTalon1);
         sensor.init_CTalons(sensor.CTalon2);
@@ -142,6 +150,12 @@ public class Robot extends SampleRobot {
         	arm_out = clawControl.getRawButton(6);
         	arm_in = clawControl.getRawButton(4);
         	cam_change = clawControl.getRawButton(2);
+            arm7 = clawControl.getRawButton(7);
+            arm8 = clawControl.getRawButton(8);
+            arm9 = clawControl.getRawButton(9);
+            arm10 = clawControl.getRawButton(10);
+            arm11 = clawControl.getRawButton(11);
+            arm12 = clawControl.getRawButton(12);
 
         	if (cam_change){
             	server = CameraServer.getInstance();

@@ -95,6 +95,10 @@ public Class Controls{
     	}
     }
 
+    public void liftToteNum() {
+        
+    }
+
     public void print(String x){
     	System.out.println(x);
     }

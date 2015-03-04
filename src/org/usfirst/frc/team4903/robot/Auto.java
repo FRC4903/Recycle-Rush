@@ -4,6 +4,7 @@ public void autonomous() {
     * mode 1 Pick up yellow tote and container and move to game zone 
     * mode 2 Get containers from land fill zone and move in to game zone before end of auto mode
     */
+    
     // calibrate arm
     while (limit_rotate_cc.get()) {
     	CTalon1.set(-0.2);

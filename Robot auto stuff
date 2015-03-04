@@ -3,7 +3,7 @@ Autonomus mode:
 2. Get containers from land fill zone and move in to game zone before end of auto mode
 
 To do:
-1. Calibrate mech wheels
-2. Calibrate arm motors
+1. Calibrate mech wheels (done)
+2. Calibrate arm motors (done)
 3. Container retraction routine
 4. Use buttons to tell robot how many tote to lift automatically
