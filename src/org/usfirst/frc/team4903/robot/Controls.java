@@ -24,8 +24,7 @@ import com.ni.vision.NIVision.Image;
 import com.ni.vision.NIVision.ShapeMode;
 
 public Class Controls{
-	Sensors sensor;
-
+    Data library = new Data();
 	public void moveBase(){
     	if (Left_x <= 0.15  && Left_x >= -0.15){ //doesnt require the joystick to be perfectly parallel to the x or y axis, so controlling is easier
     		if(Left_y != 0){ 
@@ -38,20 +37,20 @@ public Class Controls{
     		}
     	}
     	else if(Left_x > 0.15 && Left_y > 0.15){ //up - right
-    		sensor.talon1.set(speed_x);
-    		sensor.talon4.set(-speed_y);
+    		library.getSensor().talon1.set(speed_x);
+    		library.getSensor().talon4.set(-speed_y);
     	}
     	else if(Left_x < -0.15 && Left_y > 0.15){ //up - left
-    		sensor.talon2.set(-speed_x);
-    		sensor.talon3.set(speed_y);
+    		library.getSensor().talon2.set(-speed_x);
+    		library.getSensor().talon3.set(speed_y);
     	} 
     	else if(Left_x < -0.15 && Left_y < -0.15){ //down-left
-    		sensor.talon1.set(-speed_x);
-    		sensor.talon4.set(speed_y);
+    		library.getSensor().talon1.set(-speed_x);
+    		library.getSensor().talon4.set(speed_y);
     	}
     	else if(Left_x > 0.15 && Left_y < -0.15){ //down right
-    		sensor.talon2.set(speed_x);
-    		sensor.talon3.set(-speed_y);
+    		library.getSensor().talon2.set(speed_x);
+    		library.getSensor().talon3.set(-speed_y);
     	}
     	
     	if(Right_x != 0){ //rotate rightste
@@ -60,10 +59,10 @@ public Class Controls{
     }
 
     public void talonSet(double s1, double s2, double s3, double s4){
-		sensor.talon1.set(s1);
-		sensor.talon3.set(-s2);
-		sensor.talon2.set(s3); //tweak values
-		sensor.talon4.set(-s4);
+		library.getSensor().talon1.set(s1);
+		library.getSensor().talon3.set(-s2);
+		library.getSensor().talon2.set(s3); //tweak values
+		library.getSensor().talon4.set(-s4);
     }
 
     public void moveTote() {
@@ -71,32 +70,36 @@ public Class Controls{
     	//System.out.println(limit_tote_up.get());
     	//System.out.println(limit_tote_down.get());  // True by default
     	
-    	if (tote_up && sensor.limit_tote_up.get()) {
+    	if (tote_up && library.getSensor()().limit_tote_up.get()) {
     		speed = 0.2 + 0.5*(1-speed_control);
-    		sensor.L1.set(speed);
-    		sensor.L2.set(speed);
-    		sensor.L3.set(-speed);
-    		sensor.L4.set(speed);
+    		library.getSensor().L1.set(speed);
+    		library.getSensor().L2.set(speed);
+    		library.getSensor().L3.set(-speed);
+    		library.getSensor().L4.set(speed);
     		
     	}
-    	else if (tote_down && sensor.limit_tote_down.get()) {
+    	else if (tote_down && library.getSensor().limit_tote_down.get()) {
     		speed = -(0.2 + 0.5*(1-speed_control));
-    		sensor.L1.set(speed);
-    		sensor.L2.set(speed);
-    		sensor.L3.set(-speed);
-    		sensor.L4.set(speed);
+    		library.getSensor().L1.set(speed);
+    		library.getSensor().L2.set(speed);
+    		library.getSensor().L3.set(-speed);
+    		library.getSensor().L4.set(speed);
     		
     	}
     	else {
-    		sensor.L1.set(0);
-    		sensor.L2.set(0);
-    		sensor.L3.set(0);
-    		sensor.L4.set(0);
+    		library.getSensor().L1.set(0);
+    		library.getSensor().L2.set(0);
+    		library.getSensor().L3.set(0);
+    		library.getSensor().L4.set(0);
     	}
     }
 
     public void liftToteNum() {
-        
+        for (int i=0;i<6;i++){
+            if (library.getRobot().getArmValues()[i]){
+                speed = i/10;// do the math later
+            }
+        }
     }
 
     public void print(String x){
@@ -108,26 +111,26 @@ public Class Controls{
     	//System.out.println(limit_arm_out.get());  // True by default
     	System.out.println(claw_y);
     	
-    	if (arm_in && sensor.limit_arm_in.get()) {
-    		sensor.CTalon1.set(-0.5);
+    	if (arm_in && library.getSensor().limit_arm_in.get()) {
+    		library.getSensor().CTalon1.set(-0.5);
     	}
-    	else if (arm_out && sensor.limit_arm_out.get()) {
-    		sensor.CTalon1.set(0.5);
+    	else if (arm_out && library.getSensor().limit_arm_out.get()) {
+    		library.getSensor().CTalon1.set(0.5);
     	}
     	else {
-    		sensor.CTalon1.set(0.0);
+    		library.getSensor().CTalon1.set(0.0);
     	}
     	
     	//System.out.println(limit_rotate_c.get());  // True by default
     	//System.out.println(limit_rotate_cc.get());  // True by default
-    	if (claw_y > 0 && claw_safety && sensor.limit_rotate_cc.get()){
-    		sensor.CTalon2.set(-claw_y);
+    	if (claw_y > 0 && claw_safety && library.getSensor().limit_rotate_cc.get()){
+    		library.getSensor().CTalon2.set(-claw_y);
     	}
-    	else if (claw_y < 0 && claw_safety && sensor.limit_rotate_c.get()) {
-    		sensor.CTalon2.set(-claw_y);
+    	else if (claw_y < 0 && claw_safety && library.getSensor().limit_rotate_c.get()) {
+    		library.getSensor().CTalon2.set(-claw_y);
     	}
     	else {
-    		sensor.CTalon2.set(0.0);
+    		library.getSensor().CTalon2.set(0.0);
     	}
     }
 }
