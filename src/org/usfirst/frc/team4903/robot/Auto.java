@@ -3,11 +3,14 @@
 //it has to go back to the Robot thing after
 
 
-public Auto(){
+public class Auto{
     Data library = new Data ();
-    int encoder_end,encoder_start,encoder_difference;
+    int arm_up, arm_down, arm_range;
+
+    //                NO FUCKING MAGIC NUMBERS!!!!!
     int max_length=100;                     //THIS NEEDS TO CHANGE
     int length_robot =25;                   //THIS NEEDS TO CHANGE
+
     public void autonomous() {
         int mode = 1;
         /*
@@ -15,21 +18,38 @@ public Auto(){
         * mode 2 Get containers from land fill zone and move in to game zone before end of auto mode
         */
         
-        // calibrate arm
-        while (limit_rotate_cc.get()) {
-            CTalon2.set(-0.2);
+        calibrateArm();
+
+        // Roman put your shit here
+        if(mode == 1){
+            // Roman's shit
+
+            // gets the yellow tote right at the start
+            Data.getControls().pickUpTote(50);      // need pickUpTote method that takes % of motor power as a parameter
+                                                    // -ve value makes tote arm go down, +ve value makes it go up
+
         }
-        encoder_start = CTalon1.getEncPosition();
-        while (limit_rotate_c.get()) {
-            CTalon2.set(0.2);
+    }
+
+    public void calibrateArm(){
+        Controls control = library.getControls();
+        Sensors sensors = library.getSensor();
+        while (sensors.getLimitCC()) {
+            control().armUp(25);            // need armUp method that takes % of motor power as a parameter
+                                                        // -ve value makes arm go down, +ve value makes it go up
+        }
+        arm_up = sensors.getEncoderPositionC2();    // need this method, gets encoder value on CTalon2
+        while (sensors.getLimitC()) {
+            controls.armUp(-25)
         } 
-        encoder_end = CTalon2.getEncPosition();
-        encoder_difference = Math.abs(encoder_end - encoder_start);
-        while (Math.abs(CTalon2.getEncPosition()) != Math.abs(encoder_difference/2)) {
-            CTalon2.set(-0.2);
+        encoder_end = sensors.getEncoderPositionC2();
+        arm_range = Math.abs(arm_up - arm_down);
+
+        while (Math.abs(sensors.getEncoderPositionC2) != Math.abs(arm_range/2)) {
+            control.armUp(02);
         }
-        // roman put your shit here
-    }   
+    }
+
     public void retractArm(){
         //This assumes you are going to be hooked to the container
         //Then it moves it up, and brings it and drops it in front and goes all the way down.
