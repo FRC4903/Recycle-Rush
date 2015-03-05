@@ -33,13 +33,13 @@ public Auto(){
     public void retractArm(){
         //This assumes you are going to be hooked to the container
         //Then it moves it up, and brings it and drops it in front and goes all the way down.
-        while (Math.abs(encoder_difference/2) != Math.abs(library.getSensor().CTalon1.getEncPosition())){       //this just setsit to the middle, need to figure the exact value with expermientation
+        while (Math.abs(encoder_difference/2) != Math.abs(library.getSensor().CTalon1.getEncPosition())) {       //this just setsit to the middle, need to figure the exact value with expermientation
                library.getSensor().CTalon2.set(0.2);  
         }
-        while ((max_length - length_robot) != library.getSensor().CTalon2.getEncPosition()){
+        while ((max_length - length_robot) != library.getSensor().CTalon2.getEncPosition()) {
             library.getSensor().CTalon1.set(-0.2);
         }
-        while (library.getSensor().limit_rotate_cc.get()){
+        while (library.getSensor().limit_rotate_cc.get()) {
             library.getSensor().CTalon2.set(-0.2)
         }
     }

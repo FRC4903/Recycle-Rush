@@ -39,7 +39,7 @@ import com.ni.vision.NIVision.ShapeMode;
  */
 public class Robot extends SampleRobot {
     RobotDrive myRobot;
-    Sensors sensor;
+    Data library = new Data();
     Controls control;
     Joystick baseControl,clawControl;
     Ultrasonic ultra;
@@ -89,10 +89,12 @@ public class Robot extends SampleRobot {
         clawControl = new Joystick(0);
         //ultra = new Ultrasonic(0,1);
     }
-    
+    public boolean [] getArmValues(){
+        return [arm7,arm8,arm9,arm10,arm11,arm12];
+    }
     public void robotInit(){
-        sensor.init_CTalons(sensor.CTalon1);
-        sensor.init_CTalons(sensor.CTalon2);
+        library.getSensor().init_CTalons(library.getSensor().CTalon1);
+        library.getSensor().init_CTalons(library.getSensor().CTalon2);
     	
     	// Camera stuff
     
@@ -105,17 +107,17 @@ public class Robot extends SampleRobot {
      * Drive left & right motors for 2 seconds then stop
      */
     public void autonomous() {
-    	while (sensor.limit_rotate_cc.get()) {
-    		sensor.CTalon1.set(-0.2);
+    	while (library.getSensor().limit_rotate_cc.get()) {
+    		library.getSensor().CTalon1.set(-0.2);
     	}
-    	encoder_start = sensor.CTalon1.getEncPosition();
-    	while (sensor.limit_rotate_c.get()) {
-    		sensor.CTalon1.set(0.2);
+    	encoder_start = library.getSensor().CTalon1.getEncPosition();
+    	while (library.getSensor().limit_rotate_c.get()) {
+    		library.getSensor().CTalon1.set(0.2);
     	}
-    	encoder_end = sensor.CTalon1.getEncPosition();
+    	encoder_end = library.getSensor().CTalon1.getEncPosition();
     	encoder_difference = Math.abs(encoder_end - encoder_start);
-    	while (Math.abs(sensor.CTalon1.getEncPosition()) != Math.abs(encoder_difference/2)) {
-    		sensor.CTalon1.set(-0.2);
+    	while (Math.abs(library.getSensor().CTalon1.getEncPosition()) != Math.abs(encoder_difference/2)) {
+    		library.getSensor().CTalon1.set(-0.2);
     	}
     }
 
