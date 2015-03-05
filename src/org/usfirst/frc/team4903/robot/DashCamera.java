@@ -18,7 +18,7 @@ public Class DashCamera{
 		super(x,y,w,h,name);
 		this.setLayout(null);
 		p.setLayout(null);
-		//p.setBounds(dimensions in here later)
+		p.setBounds(x,y,w,h);
 		this.add(p);
 		this.ip = ip;
 	}
