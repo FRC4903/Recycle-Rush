@@ -23,8 +23,19 @@ import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
 import com.ni.vision.NIVision.ShapeMode;
 
-public Class Controls{
+public class Controls {
     Data library = new Data();
+    double speed_x = library.getRobot().speed_x;
+    double speed_y = library.getRobot().speed_y;
+    double Left_x = library.getRobot().Left_x;
+    double Left_y = library.getRobot().Left_y;
+    double Right_x = library.getRobot().Right_x;
+    double Right_y = library.getRobot().Right_y;
+    double speed = library.getRobot().speed;
+    double speed_control = library.getRobot().speed_control;
+    boolean tote_up = library.getRobot().tote_up;
+    boolean tote_down = library.getRobot().tote_down;
+   
 	public void moveBase(){
     	if (Left_x <= 0.15  && Left_x >= -0.15){ //doesnt require the joystick to be perfectly parallel to the x or y axis, so controlling is easier
     		if(Left_y != 0){ 
@@ -70,7 +81,7 @@ public Class Controls{
     	//System.out.println(limit_tote_up.get());
     	//System.out.println(limit_tote_down.get());  // True by default
     	
-    	if (tote_up && library.getSensor()().limit_tote_up.get()) {
+    	if (tote_up && library.getSensor().limit_tote_up.get()) {
     		speed = 0.2 + 0.5*(1-speed_control);
     		library.getSensor().L1.set(speed);
     		library.getSensor().L2.set(speed);

@@ -23,7 +23,7 @@ import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
 import com.ni.vision.NIVision.ShapeMode;
 
-public Class Sensors {
+public class Sensors {
     CANTalon CTalon1 = new CANTalon(1);   //x --> talon ID #1       //this is the extension
     CANTalon CTalon2 = new CANTalon(2);   //y --> talon ID #2       //this is the rotation
     SpeedController talon1 = new Talon(0);
@@ -41,15 +41,15 @@ public Class Sensors {
     Victor L3 = new Victor(6);
     Victor L4 = new Victor(7);
 
-    public void init_CTalons(CTalon) {
-    	CTalon.enableLimitSwitch(true,true);
-    	CTalon.enableBrakeMode(true);
-    	CTalon.setVoltageRampRate(6);
-    	CTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-    	CTalon.reverseOutput(true);
-    	CTalon.reverseSensor(false);
-    	CTalon.setPosition(0);
-    	CTalon.ClearIaccum();
-    	CTalon.clearStickyFaults();
-    }
+	public void init_CTalons(CANTalon CTalon) {
+	  	CTalon.enableLimitSwitch(true,true);
+	   	CTalon.enableBrakeMode(true);
+	   	CTalon.setVoltageRampRate(6);
+	   	CTalon.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+	   	CTalon.reverseOutput(true);
+	   	CTalon.reverseSensor(false);
+	   	CTalon.setPosition(0);
+	   	CTalon.ClearIaccum();
+   		CTalon.clearStickyFaults();
+	}
 }

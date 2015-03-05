@@ -1,8 +1,9 @@
-public Data() {
+package org.usfirst.frc.team4903.robot;
+public class Data {
 	Controls c;
 	Robot r;
 	Sensors s;
-	public Data(){
+	public Data() {
 		c = new Controls ();
 		r = new Robot ();
 		s = new Sensors ();
