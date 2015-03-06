@@ -3,11 +3,8 @@
 //it has to go back to the Robot thing after
 
 
-<<<<<<< HEAD
-public Auto {
-=======
 public class Auto{
->>>>>>> origin/master
+
     Data library = new Data ();
     int arm_up, arm_down, arm_range;
 
@@ -38,11 +35,13 @@ public class Auto{
     public void calibrateArm(){
         Controls control = library.getControls();
         Sensors sensors = library.getSensor();
+
         while (sensors.getLimitCC()) {
             control().armUp(25);            // need armUp method that takes % of motor power as a parameter
                                                         // -ve value makes arm go down, +ve value makes it go up
         }
         arm_up = sensors.getEncoderPositionC2();    // need this method, gets encoder value on CTalon2
+
         while (sensors.getLimitC()) {
             controls.armUp(-25)
         } 
@@ -50,7 +49,7 @@ public class Auto{
         arm_range = Math.abs(arm_up - arm_down);
 
         while (Math.abs(sensors.getEncoderPositionC2) != Math.abs(arm_range/2)) {
-            control.armUp(02);
+            control.armUp(20);
         }
     }
 
