@@ -34,10 +34,11 @@ public class Controls {
     double speed = library.getRobot().speed;
     double speed_control = library.getRobot().speed_control;
     double claw_y = library.getRobot().claw_y;
-    double claw_safety = library.getRobot().claw_safety;
-
+	double R_speed_x = library.getRobot().R_speed_x;
+	double R_speed_y = library.getRobot().R_speed_y;
+	
+    boolean claw_safety = library.getRobot().claw_safety;
     boolean arm_in = library.getRobot().arm_in;
-    boolean arm_out = library.getRobot().arm_out;
     boolean arm_out = library.getRobot().arm_out;
     boolean tote_up = library.getRobot().tote_up;
     boolean tote_down = library.getRobot().tote_down;

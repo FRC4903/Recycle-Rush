@@ -3,7 +3,7 @@
 //it has to go back to the Robot thing after
 
 
-public Auto(){
+public Auto {
     Data library = new Data ();
     int encoder_end,encoder_start,encoder_difference;
     int max_length=100;                     //THIS NEEDS TO CHANGE

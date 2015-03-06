@@ -90,7 +90,7 @@ public class Robot extends SampleRobot {
         //ultra = new Ultrasonic(0,1);
     }
     public boolean [] getArmValues(){
-        return [arm7,arm8,arm9,arm10,arm11,arm12];
+        return new boolean[]  {arm7,arm8,arm9,arm10,arm11,arm12};
     }
     public void robotInit(){
         library.getSensor().init_CTalons(library.getSensor().CTalon1);
