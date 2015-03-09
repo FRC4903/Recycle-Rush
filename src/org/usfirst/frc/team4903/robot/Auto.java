@@ -1,9 +1,11 @@
+package org.usfirst.frc.team4903.robot;
+
 // this class is really messed up
 // it really doesn't work with anything else
 //it has to go back to the Robot thing after
 
 
-public class Auto{
+public class Auto {
 
     Data library = new Data ();
     int arm_up, arm_down, arm_range;
@@ -26,7 +28,7 @@ public class Auto{
             // Roman's shit
 
             // gets the yellow tote right at the start
-            Data.getControls().pickUpTote(50);      // need pickUpTote method that takes % of motor power as a parameter
+            library.getControls().pickUpTote(50);      // need pickUpTote method that takes % of motor power as a parameter
                                                     // -ve value makes tote arm go down, +ve value makes it go up
 
         }
@@ -45,12 +47,13 @@ public class Auto{
         while (sensors.getLimitC()) {
             controls.armUp(-25)
         } 
-        encoder_end = sensors.getEncoderPositionC2();
+        arm_down = sensors.getEncoderPositionC2();
         arm_range = Math.abs(arm_up - arm_down);
 
         while (Math.abs(sensors.getEncoderPositionC2) != Math.abs(arm_range/2)) {
             control.armUp(20);
         }
+        control.armUp(0);
     }
 
     public void retractArm(){
