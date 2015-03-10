@@ -37,6 +37,13 @@ import com.ni.vision.NIVision.ShapeMode;
  * don't. Unless you know what you are doing, complex code will be much more difficult under
  * this system. Use IterativeRobot or Command-Based instead if you're new.
  */
+
+
+// this code needs to be re-worked over the march break
+// srrsly, it sucks
+// not even going to try to fix
+
+
 public class Robot extends SampleRobot {
     RobotDrive myRobot;
     Data library = new Data();

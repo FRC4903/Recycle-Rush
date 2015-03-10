@@ -28,8 +28,8 @@ public class Auto {
             // Roman's shit
 
             // gets the yellow tote right at the start
-            library.getControls().pickUpTote(50);      // need pickUpTote method that takes % of motor power as a parameter
-                                                    // -ve value makes tote arm go down, +ve value makes it go up
+            library.getControls().pickUpTote(50);       // need pickUpTote method that takes % of motor power as a parameter
+                                                        // -ve value makes tote arm go down, +ve value makes it go up
 
         }
     }
@@ -39,13 +39,13 @@ public class Auto {
         Sensors sensors = library.getSensor();
 
         while (sensors.getLimitCC()) {
-            control().armUp(25);            // need armUp method that takes % of motor power as a parameter
+            control.armUp(25);                          // need armUp method that takes % of motor power as a parameter
                                                         // -ve value makes arm go down, +ve value makes it go up
         }
-        arm_up = sensors.getEncoderPositionC2();    // need this method, gets encoder value on CTalon2
+        arm_up = sensors.getEncoderPositionC2();        // need this method, gets encoder value on CTalon2
 
         while (sensors.getLimitC()) {
-            controls.armUp(-25)
+            control.armUp(-25)
         } 
         arm_down = sensors.getEncoderPositionC2();
         arm_range = Math.abs(arm_up - arm_down);
@@ -59,14 +59,15 @@ public class Auto {
     public void retractArm(){
         //This assumes you are going to be hooked to the container
         //Then it moves it up, and brings it and drops it in front and goes all the way down.
-        while (Math.abs(encoder_difference/2) != Math.abs(library.getSensor().CTalon1.getEncPosition())) {       //this just setsit to the middle, need to figure the exact value with expermientation
-               library.getSensor().CTalon2.set(0.2);  
+        while (arm_range != Math.abs(library.getSensor().getEncoderPositionC1())) {
+                //this just sets it to the middle, need to figure the exact value with expermientation
+               library.getControls().armUp(20);  
         }
-        while ((max_length - length_robot) != library.getSensor().CTalon2.getEncPosition()) {
-            library.getSensor().CTalon1.set(-0.2);
+        while ((max_length - length_robot) != library.getSensor().getEncoderPositionC2()) {
+            library.getControls().armOut(20);
         }
-        while (library.getSensor().limit_rotate_cc.get()) {
-            library.getSensor().CTalon2.set(-0.2)
+        while (library.getSensor().getLimitCC()) {
+            library.getControls().armUp(-20)
         }
     }
 }

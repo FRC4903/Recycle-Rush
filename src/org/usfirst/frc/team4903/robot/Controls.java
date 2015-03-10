@@ -2,6 +2,11 @@
 
 package org.usfirst.frc.team4903.robot;
 
+/*
+ *
+ *      Do you really need to import ALL of this shit?
+ *
+ */
 
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -25,6 +30,10 @@ import com.ni.vision.NIVision.ShapeMode;
 
 public class Controls {
     Data library = new Data();
+
+    // change this
+    //  there should not be a getRobot method in the data class. It does not need one
+
     double speed_x = library.getRobot().speed_x;
     double speed_y = library.getRobot().speed_y;
     double Left_x = library.getRobot().Left_x;

@@ -1,9 +1,11 @@
 package org.usfirst.frc.team4903.robot;
 
-public class Data {
+public class Data{
+
 	private Controls c;
-	private Robot r;
+	private Robot r;	// this is unneccessary
 	private Sensors s;
+
 	public Data(){
 		c = new Controls ();
 		r = new Robot ();
