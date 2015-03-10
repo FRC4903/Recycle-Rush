@@ -14,6 +14,10 @@ public class Auto {
     int max_length=100;                     //THIS NEEDS TO CHANGE
     int length_robot =25;                   //THIS NEEDS TO CHANGE
 
+    public Auto(){
+        
+    }
+
     public void autonomous() {
         int mode = 1;
         /*

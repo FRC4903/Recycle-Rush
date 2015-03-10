@@ -45,6 +45,8 @@ import com.ni.vision.NIVision.ShapeMode;
 
 
 public class Robot extends SampleRobot {
+
+    Auto brain;
     RobotDrive myRobot;
     Data library = new Data();
     Controls control;
@@ -92,6 +94,7 @@ public class Robot extends SampleRobot {
     public Robot() {
         //myRobot = new RobotDrive(0, 1, 2, 3);
         //myRobot.setExpiration(0.1);
+        brain = new Auto();
         baseControl = new Joystick(1);
         clawControl = new Joystick(0);
         //ultra = new Ultrasonic(0,1);
@@ -114,18 +117,7 @@ public class Robot extends SampleRobot {
      * Drive left & right motors for 2 seconds then stop
      */
     public void autonomous() {
-    	while (library.getSensor().limit_rotate_cc.get()) {
-    		library.getSensor().CTalon1.set(-0.2);
-    	}
-    	encoder_start = library.getSensor().CTalon1.getEncPosition();
-    	while (library.getSensor().limit_rotate_c.get()) {
-    		library.getSensor().CTalon1.set(0.2);
-    	}
-    	encoder_end = library.getSensor().CTalon1.getEncPosition();
-    	encoder_difference = Math.abs(encoder_end - encoder_start);
-    	while (Math.abs(library.getSensor().CTalon1.getEncPosition()) != Math.abs(encoder_difference/2)) {
-    		library.getSensor().CTalon1.set(-0.2);
-    	}
+    	brain.autonomous();
     }
 
     /**
