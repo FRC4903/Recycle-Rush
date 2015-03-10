@@ -16,6 +16,13 @@ import edu.wpi.first.wpilibj.Victor;
 
 //              FIX THIS SHIT UP!!
 
+//              WTF is this????
+
+// this is not adequate in the slightest
+// variables are private, use getter and setter methods to access them
+
+//              FIX THIS SHIT UP!!
+
 public class Sensors {
     CANTalon CTalon1 = new CANTalon(1);   //x --> talon ID #1       //this is the extension
     CANTalon CTalon2 = new CANTalon(2);   //y --> talon ID #2       //this is the rotation

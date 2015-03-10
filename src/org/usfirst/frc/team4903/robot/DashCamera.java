@@ -6,7 +6,7 @@ import javax.swing.*;
 
 //Code credit to Wildcats Team 3540 for source code
 
-public Class DashCamera{
+public class DashCamera{
 	Jpanel p = new Jpanel();
 	Image img = null;
 	String ip;
@@ -34,6 +34,9 @@ public Class DashCamera{
 		}
 	}
 	Class JpegInput extends Thread{
+
+		// make sure this is thread-safe
+
 		public void run(){
 			while (true){
 				try{
