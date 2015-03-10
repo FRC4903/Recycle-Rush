@@ -2,26 +2,19 @@
 
 package org.usfirst.frc.team4903.robot;
 
-
-import edu.wpi.first.wpilibj.SampleRobot;
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
-import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Victor;
-import edu.wpi.first.wpilibj.CameraServer;
-import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.DrawMode;
-import com.ni.vision.NIVision.Image;
-import com.ni.vision.NIVision.ShapeMode;
+
+//              WTF is this????
+
+// this is not adequate in the slightest
+// variables are private, use getter and setter methods to access them
+
+//              FIX THIS SHIT UP!!
 
 public class Sensors {
     CANTalon CTalon1 = new CANTalon(1);   //x --> talon ID #1       //this is the extension
@@ -51,5 +44,18 @@ public class Sensors {
 	   	CTalon.setPosition(0);
 	   	CTalon.ClearIaccum();
    		CTalon.clearStickyFaults();
+	}
+	
+	public boolean getLimitCC() {
+		return limit_rotate_cc.get();
+	}
+	public boolean getLimitC() {
+		return limit_rotate_c.get();
+	}
+	public int getEncoderPositionC2() {
+		return CTalon2.getEncPosition();
+	}
+	public int getEncoderPositionC1() {
+		return CTalon1.getEncPosition();
 	}
 }

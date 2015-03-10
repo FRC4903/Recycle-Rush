@@ -3,24 +3,12 @@ package org.usfirst.frc.team4903.robot;
 
 
 import edu.wpi.first.wpilibj.SampleRobot;
-import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Ultrasonic;
-import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
-import edu.wpi.first.wpilibj.DigitalOutput;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Gyro;
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.CameraServer;
-import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
-import com.ni.vision.NIVision.ShapeMode;
 /**
  * This is a demo program showing the use of the RobotDrive class.
  * The SampleRobot class is the base of a robot application that will automatically call your
@@ -37,7 +25,16 @@ import com.ni.vision.NIVision.ShapeMode;
  * don't. Unless you know what you are doing, complex code will be much more difficult under
  * this system. Use IterativeRobot or Command-Based instead if you're new.
  */
+
+
+// this code needs to be re-worked over the march break
+// srrsly, it sucks
+// not even going to try to fix
+
+
 public class Robot extends SampleRobot {
+
+    Auto brain;
     RobotDrive myRobot;
     Data library = new Data();
     Controls control;
@@ -85,6 +82,7 @@ public class Robot extends SampleRobot {
     public Robot() {
         //myRobot = new RobotDrive(0, 1, 2, 3);
         //myRobot.setExpiration(0.1);
+        brain = new Auto();
         baseControl = new Joystick(1);
         clawControl = new Joystick(0);
         //ultra = new Ultrasonic(0,1);
@@ -107,18 +105,7 @@ public class Robot extends SampleRobot {
      * Drive left & right motors for 2 seconds then stop
      */
     public void autonomous() {
-    	while (library.getSensor().limit_rotate_cc.get()) {
-    		library.getSensor().CTalon1.set(-0.2);
-    	}
-    	encoder_start = library.getSensor().CTalon1.getEncPosition();
-    	while (library.getSensor().limit_rotate_c.get()) {
-    		library.getSensor().CTalon1.set(0.2);
-    	}
-    	encoder_end = library.getSensor().CTalon1.getEncPosition();
-    	encoder_difference = Math.abs(encoder_end - encoder_start);
-    	while (Math.abs(library.getSensor().CTalon1.getEncPosition()) != Math.abs(encoder_difference/2)) {
-    		library.getSensor().CTalon1.set(-0.2);
-    	}
+    	brain.autonomous();
     }
 
     /**

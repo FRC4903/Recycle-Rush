@@ -2,29 +2,18 @@
 
 package org.usfirst.frc.team4903.robot;
 
-
-import edu.wpi.first.wpilibj.SampleRobot;
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Ultrasonic;
-import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
-import edu.wpi.first.wpilibj.DigitalOutput;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Gyro;
-import edu.wpi.first.wpilibj.Victor;
-import edu.wpi.first.wpilibj.CameraServer;
-import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.DrawMode;
-import com.ni.vision.NIVision.Image;
-import com.ni.vision.NIVision.ShapeMode;
+/*
+ *
+ *      Do you really need to import ALL of this shit?
+ *
+ */
 
 public class Controls {
     Data library = new Data();
+
+    // change this
+    //  there should not be a getRobot method in the data class. It does not need one
+
     double speed_x = library.getRobot().speed_x;
     double speed_y = library.getRobot().speed_y;
     double Left_x = library.getRobot().Left_x;
@@ -150,5 +139,14 @@ public class Controls {
     	else {
     		library.getSensor().CTalon2.set(0.0);
     	}
+    }
+    public void armUp(int speed) {
+    	// The speed is what percent of full
+    }
+    public void armOut(int speed) {
+    	
+    }
+    public void pickUpTote(int speed) {
+    	
     }
 }
