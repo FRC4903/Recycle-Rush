@@ -24,6 +24,11 @@ import edu.wpi.first.wpilibj.Victor;
 //              FIX THIS SHIT UP!!
 
 public class Sensors {
+
+	// need a method to get the controllers
+	// that is part of sensors, not Robot
+
+
     CANTalon CTalon1 = new CANTalon(1);   //x --> talon ID #1       //this is the extension
     CANTalon CTalon2 = new CANTalon(2);   //y --> talon ID #2       //this is the rotation
     SpeedController talon1 = new Talon(0);

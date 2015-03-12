@@ -112,6 +112,10 @@ public class Robot extends SampleRobot {
      * Runs the motors with arcade steering.
      */
     public void operatorControl() {
+
+        // this can use the brain's operatorControl method instead
+        // it is already finished
+
         //myRobot.setSafetyEnabled(true);
         //double acceleration = 0.03;
     	//double rotate;
