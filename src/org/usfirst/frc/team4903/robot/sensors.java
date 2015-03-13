@@ -16,19 +16,7 @@ import edu.wpi.first.wpilibj.Victor;
 
 //              FIX THIS SHIT UP!!
 
-//              WTF is this????
-
-// this is not adequate in the slightest
-// variables are private, use getter and setter methods to access them
-
-//              FIX THIS SHIT UP!!
-
 public class Sensors {
-
-	// need a method to get the controllers
-	// that is part of sensors, not Robot
-
-
     CANTalon CTalon1 = new CANTalon(1);   //x --> talon ID #1       //this is the extension
     CANTalon CTalon2 = new CANTalon(2);   //y --> talon ID #2       //this is the rotation
     SpeedController talon1 = new Talon(0);
@@ -45,7 +33,10 @@ public class Sensors {
     Victor L2 = new Victor(5);
     Victor L3 = new Victor(6);
     Victor L4 = new Victor(7);
-
+    Data library;
+    public Sensors(Data d){
+    	library=d;
+    }
 	public void init_CTalons(CANTalon CTalon) {
 	  	CTalon.enableLimitSwitch(true,true);
 	   	CTalon.enableBrakeMode(true);

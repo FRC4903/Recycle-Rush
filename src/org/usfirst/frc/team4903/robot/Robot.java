@@ -36,7 +36,7 @@ public class Robot extends SampleRobot {
 
     Auto brain;
     RobotDrive myRobot;
-    Data library = new Data();
+    Data library ;
     Controls control;
     Joystick baseControl,clawControl;
     Ultrasonic ultra;
@@ -48,20 +48,20 @@ public class Robot extends SampleRobot {
     double Left_y;
    
     double speed_x;
-	double speed_y;
-	double R_speed_x;
-	double R_speed_y;
-	
-	int encoder_start;
-	int encoder_end;
-	int encoder_difference;
-	
-	boolean tote_up;
-	boolean tote_down;
-	boolean arm_out;
-	boolean arm_in;
-	boolean claw_safety;
-	boolean cam_change;
+    double speed_y;
+    double R_speed_x;
+    double R_speed_y;
+    
+    int encoder_start;
+    int encoder_end;
+    int encoder_difference;
+    
+    boolean tote_up;
+    boolean tote_down;
+    boolean arm_out;
+    boolean arm_in;
+    boolean claw_safety;
+    boolean cam_change;
 
     boolean arm7;
     boolean arm8;
@@ -69,20 +69,21 @@ public class Robot extends SampleRobot {
     boolean arm10;
     boolean arm11;
     boolean arm12;
-	
-	double speed;
-	
-	double claw_y;
-	double speed_control;
-	
-	int session;
+    
+    double speed;
+    
+    double claw_y;
+    double speed_control;
+    
+    int session;
     Image frame;
     
     
     public Robot() {
         //myRobot = new RobotDrive(0, 1, 2, 3);
         //myRobot.setExpiration(0.1);
-        brain = new Auto();
+        library = new Data(this);
+        
         baseControl = new Joystick(1);
         clawControl = new Joystick(0);
         //ultra = new Ultrasonic(0,1);
@@ -93,56 +94,52 @@ public class Robot extends SampleRobot {
     public void robotInit(){
         library.getSensor().init_CTalons(library.getSensor().CTalon1);
         library.getSensor().init_CTalons(library.getSensor().CTalon2);
-    	
-    	// Camera stuff
+        
+        // Camera stuff
     
-    	//frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-    	
-    	//session = NIVision.IMAQdxOpenCamera("cam0",NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+        //frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+        
+        //session = NIVision.IMAQdxOpenCamera("cam0",NIVision.IMAQdxCameraControlMode.CameraControlModeController);
         //NIVision.IMAQdxConfigureGrab(session);
     }
     /**
      * Drive left & right motors for 2 seconds then stop
      */
     public void autonomous() {
-    	brain.autonomous();
+        library.getAuto().autonomous();
     }
 
     /**
      * Runs the motors with arcade steering.
      */
     public void operatorControl() {
-
-        // this can use the brain's operatorControl method instead
-        // it is already finished
-
         //myRobot.setSafetyEnabled(true);
         //double acceleration = 0.03;
-    	//double rotate;
-    	//NIVision.IMAQdxStartAcquisition(session);
-    	//NIVision.Rect rect = new NIVision.Rect(10, 10, 100, 100);
+        //double rotate;
+        //NIVision.IMAQdxStartAcquisition(session);
+        //NIVision.Rect rect = new NIVision.Rect(10, 10, 100, 100);
         double deceleration = 0.01;
         while (isOperatorControl() && isEnabled()) {
-        	//System.out.println(CTalon1.getEncPosition());
-        	//System.out.print(" " + CTalon2.getEncPosition());
-        	
-        	Left_x = baseControl.getRawAxis(0);
-        	Left_y = baseControl.getRawAxis(1);
-        	Right_x = baseControl.getRawAxis(4);
-        	Right_y = baseControl.getRawAxis(5);
-        	speed_control = clawControl.getRawAxis(3);
-        	claw_y = clawControl.getRawAxis(1);
-        	
-        	speed_x = Left_x/2.0; 
-        	speed_y = Left_y/2.0;
-        	R_speed_x = Right_x/2.0;
-        	
-        	claw_safety = clawControl.getRawButton(1);
-        	tote_up = clawControl.getRawButton(5);
-        	tote_down = clawControl.getRawButton(3);
-        	arm_out = clawControl.getRawButton(6);
-        	arm_in = clawControl.getRawButton(4);
-        	cam_change = clawControl.getRawButton(2);
+            //System.out.println(CTalon1.getEncPosition());
+            //System.out.print(" " + CTalon2.getEncPosition());
+            
+            Left_x = baseControl.getRawAxis(0);
+            Left_y = baseControl.getRawAxis(1);
+            Right_x = baseControl.getRawAxis(4);
+            Right_y = baseControl.getRawAxis(5);
+            speed_control = clawControl.getRawAxis(3);
+            claw_y = clawControl.getRawAxis(1);
+            
+            speed_x = Left_x/2.0; 
+            speed_y = Left_y/2.0;
+            R_speed_x = Right_x/2.0;
+            
+            claw_safety = clawControl.getRawButton(1);
+            tote_up = clawControl.getRawButton(5);
+            tote_down = clawControl.getRawButton(3);
+            arm_out = clawControl.getRawButton(6);
+            arm_in = clawControl.getRawButton(4);
+            cam_change = clawControl.getRawButton(2);
             arm7 = clawControl.getRawButton(7);
             arm8 = clawControl.getRawButton(8);
             arm9 = clawControl.getRawButton(9);
@@ -150,36 +147,36 @@ public class Robot extends SampleRobot {
             arm11 = clawControl.getRawButton(11);
             arm12 = clawControl.getRawButton(12);
 
-        	if (cam_change){
-            	server = CameraServer.getInstance();
-            	server.setQuality(50);   
-        		server.startAutomaticCapture("cam1");
-        	}
-        	else{
-        		server = CameraServer.getInstance();
-        		server.setQuality(50);
-        		server.startAutomaticCapture("cam0");  // Change to can0
-        	}
-        	
-        	if (Right_x>0) {
-        		speed_x += Right_x;
-        	}
-        	if (Right_x<0) {
-        		speed_x -= Right_x;
-        	}
-        	
-        	if (Left_y == 0 && speed_y > 0) {
-        		speed_y -= deceleration;
-        	}		
-        	if (Left_x == 0 && speed_x > 0) {
-        		speed_x -= deceleration;
-        	}
+            if (cam_change){
+                server = CameraServer.getInstance();
+                server.setQuality(50);   
+                server.startAutomaticCapture("cam1");
+            }
+            else{
+                server = CameraServer.getInstance();
+                server.setQuality(50);
+                server.startAutomaticCapture("cam0");  // Change to can0
+            }
+            
+            if (Right_x>0) {
+                speed_x += Right_x;
+            }
+            if (Right_x<0) {
+                speed_x -= Right_x;
+            }
+            
+            if (Left_y == 0 && speed_y > 0) {
+                speed_y -= deceleration;
+            }       
+            if (Left_x == 0 && speed_x > 0) {
+                speed_x -= deceleration;
+            }
 
-        	control.moveBase();
-        	control.moveTote();
-        	control.moveArm();
-        	Timer.delay(0.02);
-        	
+            library.getControls().moveBase();
+            library.getControls().moveTote();
+            library.getControls().moveArm();
+            Timer.delay(0.02);
+            
         }
         //NIVision.IMAQdxStopAcquisition(session);
     }

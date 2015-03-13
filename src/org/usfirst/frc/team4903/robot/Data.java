@@ -5,11 +5,15 @@ public class Data{
 	private Controls c;
 	private Robot r;	// this is unneccessary
 	private Sensors s;
-
+	private Auto a;
+	public Data(Robot r){
+		c = new Controls(this);
+		this.r = r;
+		s = new Sensors(this);
+		a= new Auto(this);
+	}
 	public Data(){
-		c = new Controls ();
-		r = new Robot ();
-		s = new Sensors ();
+		
 	}
 	public Controls getControls(){
 		return c;
@@ -19,5 +23,8 @@ public class Data{
 	}
 	public Sensors getSensor(){
 		return s;
+	}
+	public Auto getAuto(){
+		return a;
 	}
 }

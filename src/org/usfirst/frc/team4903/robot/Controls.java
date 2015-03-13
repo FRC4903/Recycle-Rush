@@ -8,51 +8,56 @@ package org.usfirst.frc.team4903.robot;
  *
  */
 
-import edu.wpi.first.wpilibj.SampleRobot;
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Ultrasonic;
-import edu.wpi.first.wpilibj.CANTalon;
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
-import edu.wpi.first.wpilibj.DigitalOutput;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Gyro;
-import edu.wpi.first.wpilibj.Victor;
-import edu.wpi.first.wpilibj.CameraServer;
-import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.DrawMode;
-import com.ni.vision.NIVision.Image;
-import com.ni.vision.NIVision.ShapeMode;
-
 public class Controls {
-    Data library = new Data();
+    Data library;
 
     // change this
     //  there should not be a getRobot method in the data class. It does not need one
 
-    double speed_x = library.getRobot().speed_x;
-    double speed_y = library.getRobot().speed_y;
-    double Left_x = library.getRobot().Left_x;
-    double Left_y = library.getRobot().Left_y;
-    double Right_x = library.getRobot().Right_x;
-    double Right_y = library.getRobot().Right_y;
-    double speed = library.getRobot().speed;
-    double speed_control = library.getRobot().speed_control;
-    double claw_y = library.getRobot().claw_y;
-    double R_speed_x = library.getRobot().R_speed_x;
-    double R_speed_y = library.getRobot().R_speed_y;
+    double speed_x;
+    double speed_y;
+    double Left_x;
+    double Left_y;
+    double Right_x;
+    double Right_y;
+    double speed;
+    double speed_control;
+    double claw_y;
+    double R_speed_x;
+    double R_speed_y;
     
-    boolean claw_safety = library.getRobot().claw_safety;
-    boolean arm_in = library.getRobot().arm_in;
-    boolean arm_out = library.getRobot().arm_out;
-    boolean tote_up = library.getRobot().tote_up;
-    boolean tote_down = library.getRobot().tote_down;
+    boolean claw_safety;
+    boolean arm_in;
+    boolean arm_out;
+    boolean tote_up;
+    boolean tote_down;
+    
+    public Controls(Data d) {
+        library= d;
+    }
+    
+    public void updateVar() {
+        speed_x = library.getRobot().speed_x;
+        speed_y = library.getRobot().speed_y;
+        Left_x = library.getRobot().Left_x;
+        Left_y = library.getRobot().Left_y;
+        Right_x = library.getRobot().Right_x;
+        Right_y = library.getRobot().Right_y;
+        speed = library.getRobot().speed;
+        speed_control = library.getRobot().speed_control;
+        claw_y = library.getRobot().claw_y;
+        R_speed_x = library.getRobot().R_speed_x;
+        R_speed_y = library.getRobot().R_speed_y;
+        
+        claw_safety = library.getRobot().claw_safety;
+        arm_in = library.getRobot().arm_in;
+        arm_out = library.getRobot().arm_out;
+        tote_up = library.getRobot().tote_up;
+        tote_down = library.getRobot().tote_down;
+    }
    
     public void moveBase(){
+        updateVar();
         if (Left_x <= 0.15  && Left_x >= -0.15){ //doesnt require the joystick to be perfectly parallel to the x or y axis, so controlling is easier
             if(Left_y != 0){ 
                 talonSet(-speed_y,speed_y,speed_y,-speed_y); //(neg, neg, pos, pos) foreward or (pos,pos,neg,neg) back
@@ -93,6 +98,7 @@ public class Controls {
     }
 
     public void moveTote() {
+        updateVar();
         
         //System.out.println(limit_tote_up.get());
         //System.out.println(limit_tote_down.get());  // True by default
@@ -122,6 +128,7 @@ public class Controls {
     }
 
     public void liftToteNum() {
+        updateVar();
         for (int i=0;i<6;i++){
             if (library.getRobot().getArmValues()[i]){
                 speed = i/10;// do the math later
@@ -134,6 +141,7 @@ public class Controls {
     }
     
     public void moveArm() {
+        updateVar();
         //System.out.println(limit_arm_in.get());  // True by default
         //System.out.println(limit_arm_out.get());  // True by default
         System.out.println(claw_y);
@@ -160,16 +168,16 @@ public class Controls {
             library.getSensor().CTalon2.set(0.0);
         }
     }
-
-    // speed is the percent of the full speed
-    // negative to go in reverse
     public void armUp(int speed) {
-        
+        //updateVar();
+        // The speed is what percent of full
     }
     public void armOut(int speed) {
-
+        //updateVar();
+        
     }
     public void pickUpTote(int speed) {
-
+        //updateVar();
+        
     }
 }
