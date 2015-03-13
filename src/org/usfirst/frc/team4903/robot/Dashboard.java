@@ -3,14 +3,14 @@ import java.util.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import com.wildcatrobotics.dashboard.objects.UICamera;
+//import com.wildcatrobotics.dashboard.objects.UICamera;
 
 public class Dashboard{
 	JFrame dash = new JFrame("Dashboard");
 	JPanel p = new JPanel();
 	
-	UICamera camera = new UICamera(5,45,395,300, "Camera", "http://10.35.40.20/mjpg/video.mjpg");
-	UICamera camera2 = new UICamera(405,45,395,300, "Camera", "http://10.35.40.21/mjpg/video.mjpg");
+	//UICamera camera = new UICamera(5,45,395,300, "Camera", "http://10.35.40.20/mjpg/video.mjpg");
+	//UICamera camera2 = new UICamera(405,45,395,300, "Camera", "http://10.35.40.21/mjpg/video.mjpg");
 
 	public static void main(String[] args) {
 		//System.out.println("Hello World");

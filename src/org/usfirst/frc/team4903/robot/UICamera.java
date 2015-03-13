@@ -1,4 +1,4 @@
-package com.wildcatrobotics.dashboard.objects;
+package objects;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -23,8 +23,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import Mjpeg.MjpegFrame;
-import Mjpeg.MjpegInputStream;
+//import Mjpeg.MjpegFrame;
+//import Mjpeg.MjpegInputStream;
 //import org.usfirst.frc.team4903.robot.Mjpeg.MjpegInputStream;
 //import com.wildcatrobotics.dashboard.net.DataManager;
 
@@ -41,8 +41,8 @@ public class UICamera {
 	// JLabel activity = new JLabel(icon);
 
 	Image img = null;
-	MjpegFrame jpg;
-	MjpegInputStream jpgin;
+	//MjpegFrame jpg;
+	//MjpegInputStream jpgin;
 	FileOutputStream b;
 	boolean stop = false;
 	public UICamera(int x, int y, int w, int h, String name, String add) {
