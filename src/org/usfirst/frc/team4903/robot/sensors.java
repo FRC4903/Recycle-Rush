@@ -49,6 +49,12 @@ public class Sensors {
    		CTalon.clearStickyFaults();
 	}
 	
+	public boolean getToteLimitUp(){
+		return limit_tote_up;
+	}
+	public boolean getToteLimitDown(){
+		return limit_tote_down;
+	}
 	public boolean getLimitCC() {
 		return limit_rotate_cc.get();
 	}

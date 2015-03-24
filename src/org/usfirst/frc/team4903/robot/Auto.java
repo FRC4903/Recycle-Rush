@@ -10,7 +10,7 @@ public class Auto {
     Data library;
     Controls controls;
     Sensors sensors;
-    int arm_up, arm_down, arm_range, tote_low, tote_high, tote_range;
+    int arm_up, arm_down, arm_range;
 
     //                NO FUCKING MAGIC NUMBERS!!!!!
     int max_length=100;                     //THIS NEEDS TO CHANGE
@@ -38,12 +38,15 @@ public class Auto {
 
             // gets the yellow tote right at the start
             // tweak the numbers
-            for(int i = 0; i < 1000; i++){
-                controls.armUp()
-            }
 
-            for(int i = 0; i < 100000000; i++){
-                talonSet(1.0, 1.0, 1.0, 1.0);
+            for(int i = 0; i < 10000; i++){
+                if(!sensors.getToteLimitUp()){
+                    armUp(20);
+                }
+
+                if(i > 50){
+                    talonSet(1.0, 1.0, 1.0, 1.0);
+                }
             }
 
         }else if(mode == 2){
