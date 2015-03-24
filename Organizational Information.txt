@@ -34,4 +34,4 @@ Team
 - 2 tools and components
 - 4 electrical
 - 2 rules and Q&A
-- 4-6 programmers (or less)
+- 4-6 programmers (less)

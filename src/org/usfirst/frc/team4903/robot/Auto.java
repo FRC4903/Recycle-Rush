@@ -46,6 +46,14 @@ public class Auto {
                 talonSet(1.0, 1.0, 1.0, 1.0);
             }
 
+        }else if(mode == 2){
+            cPickUpArm();
+
+            //turn around
+            
+            while (sensors.getLimitC()) {
+                controls.armUp(-0.25);
+            }
         }
     }
 
@@ -77,20 +85,23 @@ public class Auto {
         }
     }
 
-    public void cRetractArm(){
+    public void cPickUpArm(){
         // stands for container retract arm
 
         //This assumes you are going to be hooked to the container
         //Then it moves it up, and brings it and drops it in front and goes all the way down.
         while (arm_range != Math.abs(sensors.getEncoderPositionC1())) {
-                //this just sets it to the middle, need to figure the exact value with expermientation
-               controls.armUp(20);  
+            //this just sets it to the middle, need to figure the exact value with expermientation
+            controls.armUp(0.2);  
         }
         while ((max_length - length_robot) != sensors.getEncoderPositionC2()) {
-            controls.armOut(20);
+            controls.armOut(0.2);
         }
         while (sensors.getLimitCC()) {
-            controls.armUp(-20);
+            controls.armUp(-0.2);
+        }
+        while ((max_length - length_robot) != sensors.getEncoderPositionC2()) {// fix this
+            controls.armOut(-0.2);
         }
     }
 
