@@ -30,7 +30,6 @@ public class Auto {
         */
         
         calibrateArm();
-        calibrateToteLifter();
 
         // Roman put your shit here
         if(mode == 1){
@@ -41,11 +40,11 @@ public class Auto {
 
             for(int i = 0; i < 10000; i++){
                 if(!sensors.getToteLimitUp()){
-                    armUp(20);
+                    controls.armUp(20);
                 }
 
                 if(i > 50){
-                    talonSet(1.0, 1.0, 1.0, 1.0);
+                    controls.talonSet(1.0, 1.0, 1.0, 1.0);
                 }
             }
 
@@ -55,9 +54,13 @@ public class Auto {
             //turn around
             
             while (sensors.getLimitC()) {
-                controls.armUp(-0.25);
+                controls.armUp(-25);
             }
         }
+    }
+
+    public void teleop(){
+
     }
 
     public void moveArmToPos(int percent, int speed){
@@ -73,18 +76,18 @@ public class Auto {
     public void calibrateArm(){
 
         while (sensors.getLimitCC()) {
-            controls.armUp(0.25);
+            controls.armUp(25);
         }
         arm_up = sensors.getEncoderPositionC2();
 
         while (sensors.getLimitC()) {
-            controls.armUp(-0.25);
+            controls.armUp(-25);
         } 
         arm_down = sensors.getEncoderPositionC2();
         arm_range = Math.abs(arm_up - arm_down);
 
         while (Math.abs(sensors.getEncoderPositionC2()) != Math.abs(arm_range/2)) {
-            controls.armUp(0.2);
+            controls.armUp(20);
         }
     }
 
@@ -95,16 +98,16 @@ public class Auto {
         //Then it moves it up, and brings it and drops it in front and goes all the way down.
         while (arm_range != Math.abs(sensors.getEncoderPositionC1())) {
             //this just sets it to the middle, need to figure the exact value with expermientation
-            controls.armUp(0.2);  
+            controls.armUp(20);  
         }
         while ((max_length - length_robot) != sensors.getEncoderPositionC2()) {
-            controls.armOut(0.2);
+            controls.armOut(20);
         }
         while (sensors.getLimitCC()) {
-            controls.armUp(-0.2);
+            controls.armUp(-20);
         }
         while ((max_length - length_robot) != sensors.getEncoderPositionC2()) {// fix this
-            controls.armOut(-0.2);
+            controls.armOut(-20);
         }
     }
 
