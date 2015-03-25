@@ -93,7 +93,7 @@ public class Controls {
     public void talonSet(double s1, double s2, double s3, double s4){
         library.getSensor().talon1.set(s1);
         library.getSensor().talon3.set(-s2);
-        library.getSensor().talon2.set(s3); //tweak values
+        library.getSensor().talon2.set(s3); 
         library.getSensor().talon4.set(-s4);
     }
 
@@ -169,15 +169,22 @@ public class Controls {
         }
     }
     public void armUp(int speed) {
-        //updateVar();
-        // The speed is what percent of full
+        updateVar();
+        if (llibrary.getSensor().getLimitCC() == false && library.getSensor().getLimitC()== false){
+            library.getSensor().CTalon2.set(speed);
+        }
+        
+        
     }
     public void armOut(int speed) {
-        //updateVar();
-        
+        updateVar();
+        if (llibrary.getSensor().getArmIn() == false && library.getSensor().getArmOut()== false){
+            library.getSensor().CTalon1.set(speed);
+        }
     }
-    public void pickUpTote(int speed) {
-        //updateVar();
-        
+    public void pickUpTote(int s) {
+        updateVar();
+        speed=s;
+        moveTote();
     }
 }
