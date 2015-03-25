@@ -168,10 +168,12 @@ public class Controls {
             library.getSensor().CTalon2.set(0.0);
         }
     }
+
+    // the speed variables are percents of max speed
     public void armUp(int speed) {
         updateVar();
         if (llibrary.getSensor().getLimitCC() == false && library.getSensor().getLimitC()== false){
-            library.getSensor().CTalon2.set(speed);
+            library.getSensor().CTalon2.set(speed/100);
         }
         
         
@@ -179,12 +181,12 @@ public class Controls {
     public void armOut(int speed) {
         updateVar();
         if (llibrary.getSensor().getArmIn() == false && library.getSensor().getArmOut()== false){
-            library.getSensor().CTalon1.set(speed);
+            library.getSensor().CTalon1.set(speed/100);
         }
     }
     public void pickUpTote(int s) {
         updateVar();
-        speed=s;
+        speed=s/100;
         moveTote();
     }
 }
