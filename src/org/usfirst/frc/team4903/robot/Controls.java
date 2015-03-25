@@ -2,12 +2,6 @@
 
 package org.usfirst.frc.team4903.robot;
 
-/*
- *
- *      Do you really need to import ALL of this shit?
- *
- */
-
 public class Controls {
     Data library;
 
@@ -58,16 +52,15 @@ public class Controls {
    
     public void moveBase(){
         updateVar();
-        if (Left_x <= 0.15  && Left_x >= -0.15){ //doesnt require the joystick to be perfectly parallel to the x or y axis, so controlling is easier
-            if(Left_y != 0){ 
-                talonSet(-speed_y,speed_y,speed_y,-speed_y); //(neg, neg, pos, pos) foreward or (pos,pos,neg,neg) back
-            }
+        
+        if(Left_y != 0){
+            talonSet(-speed_y,speed_y,speed_y,-speed_y); //(neg, neg, pos, pos) foreward or (pos,pos,neg,neg) back
         }
-        else if(Left_y <= 0.15 && Left_y >= -0.15){
-            if(Left_x != 0){ 
-                talonSet(speed_x,-speed_x,speed_x,-speed_x); // right (neg, pos, neg, pos) left (pos,neg,pos,neg)
-            }
+        
+        if(Left_x != 0){ 
+            talonSet(speed_x,-speed_x,speed_x,-speed_x); // right (neg, pos, neg, pos) left (pos,neg,pos,neg)
         }
+
         else if(Left_x > 0.15 && Left_y > 0.15){ //up - right
             library.getSensor().talon1.set(speed_x);
             library.getSensor().talon4.set(-speed_y);
