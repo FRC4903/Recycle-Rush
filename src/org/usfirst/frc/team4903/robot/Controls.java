@@ -19,6 +19,10 @@ public class Controls {
     double claw_y;
     double R_speed_x;
     double R_speed_y;
+    double s1;
+    double s2;
+    double s3;
+    double s4;
     
     boolean claw_safety;
     boolean arm_in;
@@ -52,7 +56,30 @@ public class Controls {
    
     public void moveBase(){
         updateVar();
+
+        s1 += -speed_y;
+        s2 += speed_y;
+        s3 += speed_y;
+        s4 += -speed_y;
         
+        s1 += speed_x;
+        s2 += -speed_x;
+        s3 += speed_x;
+        s4 += -speed_x;
+    
+        s1 += R_speed_x;
+        s2 += R_speed_x;
+        s3 += R_speed_x;
+        s4 += R_speed_x;
+
+        talonSet(s1, s2, s3, s4)
+
+        s1 = 0;
+        s2 = 0;
+        s3 = 0;
+        s4 = 0;
+
+        /*
         if(Left_y != 0){
             talonSet(-speed_y,speed_y,speed_y,-speed_y); //(neg, neg, pos, pos) foreward or (pos,pos,neg,neg) back
         }
@@ -81,6 +108,7 @@ public class Controls {
         if(Right_x != 0){ //rotate rightste
             talonSet(R_speed_x,R_speed_x,R_speed_x,R_speed_x);
         }
+        */
     }
 
     public void talonSet(double s1, double s2, double s3, double s4){
