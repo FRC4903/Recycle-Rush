@@ -57,25 +57,22 @@ public class Controls {
     public void moveBase(){
         updateVar();
 
-        // y axis of left stick
         s1 += -speed_y;
         s2 += speed_y;
         s3 += speed_y;
         s4 += -speed_y;
         
-        // x axis of left stick
         s1 += speed_x;
         s2 += -speed_x;
         s3 += speed_x;
         s4 += -speed_x;
     
-        // x axis of right stick
         s1 += R_speed_x;
         s2 += R_speed_x;
         s3 += R_speed_x;
         s4 += R_speed_x;
 
-        talonSet(s1, s2, s3, s4);
+        talonSet(s1, s2, s3, s4)
 
         s1 = 0;
         s2 = 0;
@@ -153,12 +150,15 @@ public class Controls {
 
     public void liftToteNum() {
         updateVar();
-        for (int i=1;i<=6;i++){
-            if (library.getRobot().getArmValues()[i]) {
-                speed = i*1.5/100.0;  // do the math later
-                pickUpTote(speed);
+        for (int i=0;i<6;i++){
+            if (library.getRobot().getArmValues()[i]){
+                speed = i/10;// do the math later
             }
         }
+    }
+
+    public void print(String x){
+        System.out.println(x);
     }
     
     public void moveArm() {
@@ -193,21 +193,21 @@ public class Controls {
     // the speed variables are percents of max speed
     public void armUp(int speed) {
         updateVar();
-        if (library.getSensor().getLimitCC() == false && library.getSensor().getLimitC()== false){
-            library.getSensor().CTalon2.set(speed/100.0);
+        if (llibrary.getSensor().getLimitCC() == false && library.getSensor().getLimitC()== false){
+            library.getSensor().CTalon2.set(speed/100);
         }
         
         
     }
     public void armOut(int speed) {
         updateVar();
-        if (library.getSensor().getArmIn() == false && library.getSensor().getArmOut()== false){
-            library.getSensor().CTalon1.set(speed/100.0);
+        if (llibrary.getSensor().getArmIn() == false && library.getSensor().getArmOut()== false){
+            library.getSensor().CTalon1.set(speed/100);
         }
     }
     public void pickUpTote(int s) {
         updateVar();
-        speed=s/100.0;
+        speed=s/100;
         moveTote();
     }
 }
