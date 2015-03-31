@@ -185,5 +185,13 @@ public class Robot extends SampleRobot {
      * Runs during test mode
      */
     public void test() {
+        int start = System.nanoTime();
+        int counter = 0;
+        while(System.nanoTime() - start < 15000000000){
+            library.getControls().setTalons(0, 0, 0, 0);
+            counter++;
+        }
+        System.out.println(counter)
+
     }
 }
