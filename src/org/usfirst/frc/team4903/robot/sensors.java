@@ -50,10 +50,16 @@ public class Sensors {
 	}
 	
 	public boolean getToteLimitUp(){
-		return limit_tote_up;
+		return limit_tote_up.get();
 	}
 	public boolean getToteLimitDown(){
-		return limit_tote_down;
+		return limit_tote_down.get();
+	}
+	public boolean getArmIn() {
+		return limit_arm_in.get();
+	}
+	public boolean getArmOut() {
+		return limit_arm_out.get();
 	}
 	public boolean getLimitCC() {
 		return limit_rotate_cc.get();

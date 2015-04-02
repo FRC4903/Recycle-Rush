@@ -17,6 +17,7 @@ public class Controls {
     double speed;
     double speed_control;
     double claw_y;
+    double claw_x;
     double R_speed_x;
     double R_speed_y;
     double s1;
@@ -44,6 +45,7 @@ public class Controls {
         speed = library.getRobot().speed;
         speed_control = library.getRobot().speed_control;
         claw_y = library.getRobot().claw_y;
+        claw_x = library.getRobot().claw_x;
         R_speed_x = library.getRobot().R_speed_x;
         R_speed_y = library.getRobot().R_speed_y;
         
@@ -54,64 +56,54 @@ public class Controls {
         tote_down = library.getRobot().tote_down;
     }
    
-    public void moveBase(){
+    public void moveBase(int controler){
         updateVar();
 
-        // y axis of left stick
-        s1 += -speed_y;
-        s2 += speed_y;
-        s3 += speed_y;
-        s4 += -speed_y;
+        if (controler == 1) {
+        	if (Left_y != 0) {
+        		s1 += -speed_y;
+        		s2 += speed_y;
+        		s3 += speed_y;
+        		s4 += -speed_y;
+        	}
+
+        	if (Left_x != 0) {
+        		s1 += speed_x;
+        		s2 += -speed_x;
+        		s3 += speed_x;
+        		s4 += -speed_x;
+        	}
         
-        // x axis of left stick
-        s1 += speed_x;
-        s2 += -speed_x;
-        s3 += speed_x;
-        s4 += -speed_x;
-    
-        // x axis of right stick
-        s1 += R_speed_x;
-        s2 += R_speed_x;
-        s3 += R_speed_x;
-        s4 += R_speed_x;
+        	if (Right_x != 0) {
+        		s1 += R_speed_x;
+        		s2 += R_speed_x;
+        		s3 += R_speed_x;
+        		s4 += R_speed_x;
+        	}
+        }
+        
+        if (controler == 2) {
+        	if (claw_y != 0) {
+	        	s1 += -claw_y;
+	        	s2 += -claw_y;
+	        	s3 += -claw_y;
+	        	s4 += -claw_y;
+        	}
+        	
+        	if (claw_x != 0) {
+        		s1 += claw_x;
+        		s2 += -claw_x;
+        		s3 += claw_x;
+        		s4 += -claw_x;
+        	}
+        }
 
         talonSet(s1, s2, s3, s4);
-
         s1 = 0;
         s2 = 0;
         s3 = 0;
         s4 = 0;
-
-        /*
-        if(Left_y != 0){
-            talonSet(-speed_y,speed_y,speed_y,-speed_y); //(neg, neg, pos, pos) foreward or (pos,pos,neg,neg) back
-        }
         
-        if(Left_x != 0){ 
-            talonSet(speed_x,-speed_x,speed_x,-speed_x); // right (neg, pos, neg, pos) left (pos,neg,pos,neg)
-        }
-
-        else if(Left_x > 0.15 && Left_y > 0.15){ //up - right
-            library.getSensor().talon1.set(speed_x);
-            library.getSensor().talon4.set(-speed_y);
-        }
-        else if(Left_x < -0.15 && Left_y > 0.15){ //up - left
-            library.getSensor().talon2.set(-speed_x);
-            library.getSensor().talon3.set(speed_y);
-        } 
-        else if(Left_x < -0.15 && Left_y < -0.15){ //down-left
-            library.getSensor().talon1.set(-speed_x);
-            library.getSensor().talon4.set(speed_y);
-        }
-        else if(Left_x > 0.15 && Left_y < -0.15){ //down right
-            library.getSensor().talon2.set(speed_x);
-            library.getSensor().talon3.set(-speed_y);
-        }
-        
-        if(Right_x != 0){ //rotate rightste
-            talonSet(R_speed_x,R_speed_x,R_speed_x,R_speed_x);
-        }
-        */
     }
 
     public void talonSet(double s1, double s2, double s3, double s4){
@@ -153,19 +145,21 @@ public class Controls {
 
     public void liftToteNum() {
         updateVar();
-        for (int i=1;i<=6;i++){
-            if (library.getRobot().getArmValues()[i]) {
-                speed = i*1.5/100.0;  // do the math later
-                pickUpTote(speed);
+        for (int i=0;i<6;i++){
+            if (library.getRobot().getArmValues()[i]){
+                speed = i/10;// do the math later
             }
         }
+    }
+
+    public void print(String x){
+        System.out.println(x);
     }
     
     public void moveArm() {
         updateVar();
         //System.out.println(limit_arm_in.get());  // True by default
         //System.out.println(limit_arm_out.get());  // True by default
-        System.out.println(claw_y);
         
         if (arm_in && library.getSensor().limit_arm_in.get()) {
             library.getSensor().CTalon1.set(-0.5);
@@ -194,9 +188,8 @@ public class Controls {
     public void armUp(int speed) {
         updateVar();
         if (library.getSensor().getLimitCC() == false && library.getSensor().getLimitC()== false){
-            library.getSensor().CTalon2.set(speed/100.0);
-        }
-        
+            library.getSensor().CTalon2.set(speed/100);
+        }       
         
     }
     public void armOut(int speed) {
