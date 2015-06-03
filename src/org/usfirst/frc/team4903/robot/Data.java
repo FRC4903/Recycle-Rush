@@ -3,7 +3,7 @@ package org.usfirst.frc.team4903.robot;
 public class Data{
 
 	private Controls c;
-	private Robot r;	// this is unneccessary
+	private Robot r;
 	private Sensors s;
 	private Auto a;
 	public Data(Robot r){

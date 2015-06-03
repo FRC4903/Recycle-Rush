@@ -1,10 +1,5 @@
 package org.usfirst.frc.team4903.robot;
 
-// this class is really messed up
-// it really doesn't work with anything else
-//it has to go back to the Robot thing after
-
-
 public class Auto {
 
     Data library;
@@ -12,9 +7,8 @@ public class Auto {
     Sensors sensors;
     int arm_up, arm_down, arm_range;
 
-    //                NO FUCKING MAGIC NUMBERS!!!!!
-    int max_length=100;                     //THIS NEEDS TO CHANGE
-    int length_robot =25;                   //THIS NEEDS TO CHANGE
+    int max_length=100;
+    int length_robot =25;
 
     public Auto(Data d){
         library = d;
@@ -32,24 +26,9 @@ public class Auto {
          * mode 1 Pick up yellow tote and container and move to game zone 
          * mode 2 Get containers from land fill zone and move in to game zone before end of auto mode
          */
-            
-        // arm calibrating doesn't even matter because the robot does not need to know where
-        // it is
-        //calibrateArm();
 
-        // Roman put your shit here
         if(mode == 1){
-            // Roman's shit
             // gets the yellow tote right at the start
-            // tweak the numbers
-
-            // This was to get the container as well but everyone else is garbage and wouldn't
-            // let us test and so idk if it works. DO NOT USE OR FIX, screw them
-            /*
-        	while (sensors.getEncoderPositionC1()>-2200) {
-        		controls.armOut(60);
-        	}
-            */
 
             for (int i = 0; i < loopSec*2; i++) {
                 controls.pickUpTote(50);
@@ -67,22 +46,6 @@ public class Auto {
                 controls.talonSet(0.0, 0.0, 0.0, 0.0);
             }
 
-            /*
-            for(int i = 0; i < loopNum; i++){
-                if(i > 10 && i < 50){
-                    // after a 10 loop delay, pick up the tote for 40 loops
-                    controls.pickUpTote(20);
-                }
-                if(i < loopSec*5){
-                    // the first 5 seconds it drives forwards
-                    controls.talonSet(0.2, -0.2, -0.2, 0.2);
-                }
-                if(i > loopSec*5){
-                    // after 5 seconds it stops
-                    controls.talonSet(0, 0, 0, 0);
-                }
-            }
-            */
             controls.talonSet(0, 0, 0, 0);
 
         } else if(mode == 2){
@@ -99,8 +62,8 @@ public class Auto {
                     //container = true;
                 }
                 if(container){
-                    controls.talonSet(-0.25, 0.25, 0, 0);   // set this to the right values
-                    if(i > loopSec * 5){ // change these values as needed
+                    controls.talonSet(-0.25, 0.25, 0, 0);
+                    if(i > loopSec * 5){
                         controls.talonSet(0, 0, 0, 0);
                         container = false;
                     }
@@ -140,8 +103,6 @@ public class Auto {
     public void cPickUpArm(){
         // stands for container retract arm
 
-        //This assumes you are going to be hooked to the container
-        //Then it moves it up, and brings it and drops it in front and goes all the way down.
         while (arm_range != Math.abs(sensors.getEncoderPositionC1())) {
             //this just sets it to the middle, need to figure the exact value with expermientation
             controls.armUp(2);  
@@ -152,7 +113,7 @@ public class Auto {
         while (sensors.getLimitCC()) {
             controls.armUp(-2);
         }
-        while ((max_length - length_robot) != sensors.getEncoderPositionC2()) {// fix this
+        while ((max_length - length_robot) != sensors.getEncoderPositionC2()) {
             controls.armOut(-2);
         }
     }

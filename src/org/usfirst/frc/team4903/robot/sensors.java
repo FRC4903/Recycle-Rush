@@ -7,14 +7,7 @@ import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Victor;
-
-//              WTF is this????
-
-// this is not adequate in the slightest
-// variables are private, use getter and setter methods to access them
-
-//              FIX THIS SHIT UP!!
+import edu.wpi.first.wpilibj.Victor;\
 
 public class Sensors {
     CANTalon CTalon1 = new CANTalon(1);   //x --> talon ID #1       //this is the extension

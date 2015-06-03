@@ -5,9 +5,6 @@ package org.usfirst.frc.team4903.robot;
 public class Controls {
     Data library;
 
-    // change this
-    //  there should not be a getRobot method in the data class. It does not need one
-
     double speed_x;
     double speed_y;
     double Left_x;
@@ -147,7 +144,7 @@ public class Controls {
         updateVar();
         for (int i=0;i<6;i++){
             if (library.getRobot().getArmValues()[i]){
-                speed = i/10;// do the math later
+                speed = i/10;
             }
         }
     }

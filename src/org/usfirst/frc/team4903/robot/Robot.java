@@ -27,11 +27,15 @@ import com.ni.vision.NIVision.Image;
  * this system. Use IterativeRobot or Command-Based instead if you're new.
  */
 
-
-// this code needs to be re-worked over the march break
-// srrsly, it sucks
-// not even going to try to fix
-
+/**
+ * CODE BY:
+ *   Dilpreet Chana
+ *   Roman Seviaryn
+ *   Vasav Shaw
+ *   Himel Mondal
+ *   Joey Zhao
+ *   Yasir Khan
+ */
 
 public class Robot extends SampleRobot {
 
@@ -85,13 +89,10 @@ public class Robot extends SampleRobot {
     
     
     public Robot() {
-        //myRobot = new RobotDrive(0, 1, 2, 3);
-        //myRobot.setExpiration(0.1);
         library = new Data(this);
     	
         baseControl = new Joystick(1);
         clawControl = new Joystick(0);
-        //ultra = new Ultrasonic(0,1);
     }
     public boolean [] getArmValues(){
         return new boolean[]  {arm7,arm8,arm9,arm10,arm11,arm12};
@@ -99,13 +100,6 @@ public class Robot extends SampleRobot {
     public void robotInit(){
         library.getSensor().init_CTalons(library.getSensor().CTalon1);
         library.getSensor().init_CTalons(library.getSensor().CTalon2);
-    	
-    	// Camera stuff
-    
-    	//frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-    	
-    	//session = NIVision.IMAQdxOpenCamera("cam0",NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-        //NIVision.IMAQdxConfigureGrab(session);
     }
     /**
      * Drive left & right motors for 2 seconds then stop
@@ -118,11 +112,6 @@ public class Robot extends SampleRobot {
      * Runs the motors with arcade steering.
      */
     public void operatorControl() {
-        //myRobot.setSafetyEnabled(true);
-        //double acceleration = 0.03;
-    	//double rotate;
-    	//NIVision.IMAQdxStartAcquisition(session);
-    	//NIVision.Rect rect = new NIVision.Rect(10, 10, 100, 100);
         double deceleration = 0.01;
         while (isOperatorControl() && isEnabled()) {
         	//System.out.println(CTalon1.getEncPosition());
