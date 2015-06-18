@@ -71,12 +71,15 @@ public class Controls {
         		s4 += -speed_x;
         	}
         
+            // Comment to drive with regular wheels
+            /*  Uncomment to take advantage of mechanum wheels
         	if (Right_x != 0) {
         		s1 += R_speed_x;
         		s2 += R_speed_x;
         		s3 += R_speed_x;
         		s4 += R_speed_x;
         	}
+            */
         }
         
         if (controler == 2) {
