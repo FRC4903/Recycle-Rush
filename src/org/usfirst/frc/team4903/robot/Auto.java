@@ -3,7 +3,7 @@ package org.usfirst.frc.team4903.robot;
 public class Auto {
 
     Data library;
-    Controls controls;
+    Controls controls;  // Controls thing
     Sensors sensors;
     int arm_up, arm_down, arm_range;
 
